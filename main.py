@@ -23,7 +23,10 @@ def on_click(button_text):
     elif button_text.isdigit() or button_text in ('+', '-', '*', '/'):
         entry.insert(tk.END, button_text)
     elif button_text == '.':
-        if '.' not in current_text:
+        last_operand = current_text.split()[-1]
+        if '.' not in last_operand and not any(c.isdigit() for c in last_operand):
+            entry.insert(tk.END, '0' + button_text)
+        elif '.' not in last_operand:
             entry.insert(tk.END, button_text)
     else:
         entry.insert(tk.END, button_text)
