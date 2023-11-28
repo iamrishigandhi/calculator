@@ -21,7 +21,7 @@ root.title("Calculator")
 
 # Entry widget to display the input and output
 entry = tk.Entry(root, width=20, font=("Helvetica", 16), justify="right")
-entry.grid(row=0, column=0, columnspan=4)
+entry.grid(row=0, column=0, columnspan=4, sticky="nsew")  # Added sticky attribute
 
 # Button layout
 buttons = [
@@ -40,11 +40,17 @@ def create_button_handler(button_text):
 row_val = 1
 col_val = 0
 for button_text in buttons:
-    tk.Button(root, text=button_text, width=5, height=2, command=create_button_handler(button_text)).grid(row=row_val, column=col_val)
+    button = tk.Button(root, text=button_text, width=5, height=2, command=create_button_handler(button_text))
+    button.grid(row=row_val, column=col_val, sticky="nsew")  # Added sticky attribute
     col_val += 1
     if col_val > 3:
         col_val = 0
         row_val += 1
+
+# Configure column and row weights
+for i in range(4):
+    root.columnconfigure(i, weight=1)
+    root.rowconfigure(i + 1, weight=1)
 
 # Run the main loop
 root.mainloop()
