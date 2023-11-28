@@ -21,7 +21,7 @@ root.title("Calculator")
 
 # Entry widget to display the input and output
 entry = tk.Entry(root, width=20, font=("Helvetica", 16), justify="right")
-entry.grid(row=0, column=0, columnspan=4, sticky="nsew")  # Added sticky attribute
+entry.grid(row=0, column=0, columnspan=4, sticky="nsew")
 
 # Button layout
 buttons = [
