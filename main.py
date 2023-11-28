@@ -4,14 +4,27 @@ def on_click(button_text):
     current_text = entry.get()
     if button_text == "=":
         try:
+            if any(c.isalpha() for c in current_text):
+                raise ValueError("Invalid input")
             result = eval(current_text)
             entry.delete(0, tk.END)
             entry.insert(tk.END, str(result))
+        except ZeroDivisionError:
+            entry.delete(0, tk.END)
+            entry.insert(tk.END, "Error: Division by zero")
+        except ValueError as ve:
+            entry.delete(0, tk.END)
+            entry.insert(tk.END, f"Error: {str(ve)}")
         except Exception as e:
             entry.delete(0, tk.END)
-            entry.insert(tk.END, "Error")
+            entry.insert(tk.END, "Error: Invalid expression")
     elif button_text == "C":
         entry.delete(0, tk.END)
+    elif button_text.isdigit() or button_text in ('+', '-', '*', '/'):
+        entry.insert(tk.END, button_text)
+    elif button_text == '.':
+        if '.' not in current_text:
+            entry.insert(tk.END, button_text)
     else:
         entry.insert(tk.END, button_text)
 
@@ -60,6 +73,10 @@ for i in range(4):
 def adjust_button_font_size(event, button):
     new_font_size = max(10, int(event.width / 10))
     button['font'] = ('Helvetica', new_font_size)
+
+# Add keyboard bindings
+root.bind("<Return>", lambda event: on_click('='))
+root.bind("<BackSpace>", lambda event: entry.delete(len(entry.get()) - 1))
 
 # Run the main loop
 root.mainloop()
