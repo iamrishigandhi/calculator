@@ -17,7 +17,7 @@ def on_click(button_text):
 
 # Create the main window
 root = tk.Tk()
-root.title("Simple Calculator")
+root.title("Calculator")
 
 # Entry widget to display the input and output
 entry = tk.Entry(root, width=20, font=("Helvetica", 16), justify="right")
