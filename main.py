@@ -1,5 +1,4 @@
 import tkinter as tk
-from decimal import Decimal, InvalidOperation
 
 def on_click(button_text):
     current_text = entry.get()
@@ -7,15 +6,15 @@ def on_click(button_text):
         try:
             if any(c.isalpha() for c in current_text):
                 raise ValueError("Invalid input")
-            result = Decimal(eval(current_text))
+            result = eval(current_text)
             entry.delete(0, tk.END)
             entry.insert(tk.END, str(result))
         except ZeroDivisionError:
             entry.delete(0, tk.END)
             entry.insert(tk.END, "Error: Division by zero")
-        except InvalidOperation as ioe:
+        except ValueError as ve:
             entry.delete(0, tk.END)
-            entry.insert(tk.END, f"Error: {str(ioe)}")
+            entry.insert(tk.END, f"Error: {str(ve)}")
         except Exception as e:
             entry.delete(0, tk.END)
             entry.insert(tk.END, "Error: Invalid expression")
