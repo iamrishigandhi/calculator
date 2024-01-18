@@ -1,4 +1,5 @@
 import tkinter as tk
+from decimal import Decimal, InvalidOperation
 
 def on_click(button_text):
     current_text = entry.get()
@@ -6,15 +7,15 @@ def on_click(button_text):
         try:
             if any(c.isalpha() for c in current_text):
                 raise ValueError("Invalid input")
-            result = eval(current_text)
+            result = Decimal(eval(current_text))
             entry.delete(0, tk.END)
             entry.insert(tk.END, str(result))
         except ZeroDivisionError:
             entry.delete(0, tk.END)
             entry.insert(tk.END, "Error: Division by zero")
-        except ValueError as ve:
+        except InvalidOperation as ioe:
             entry.delete(0, tk.END)
-            entry.insert(tk.END, f"Error: {str(ve)}")
+            entry.insert(tk.END, f"Error: {str(ioe)}")
         except Exception as e:
             entry.delete(0, tk.END)
             entry.insert(tk.END, "Error: Invalid expression")
@@ -54,10 +55,10 @@ def create_button_handler(button_text):
 row_val = 1
 col_val = 0
 for button_text in buttons:
-    button = tk.Button(root, text=button_text, width=4, height=2, command=create_button_handler(button_text))
+    button = tk.Button(root, text=button_text, width=4, height=2, command=create_button_handler(button_text), bg="white")
     button.grid(row=row_val, column=col_val, sticky="nsew")
     
-    # Bind the <Configure> event to adjust font size dynamically
+    # Bind the configure event to adjust font size dynamically
     button.bind("<Configure>", lambda event, button=button: adjust_button_font_size(event, button))
     
     col_val += 1
