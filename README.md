@@ -46,10 +46,6 @@ Make sure you have the following installed on your machine:
 2. Use the buttons on the GUI to input numbers and perform calculations.
 3. The result will be displayed on the screen.
 
-## Screenshots
-
-![Calculator Screenshot](screenshots/calculator_screenshot.png)
-
 ## Contributing
 
 If you'd like to contribute to this project, please follow the standard GitHub flow:
